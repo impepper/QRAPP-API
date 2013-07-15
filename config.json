@@ -1,0 +1,71 @@
+{
+    "routes": [ {
+    	"Purpose":"沒有輸入任何資料，進入空白的建置畫面",
+        "path": "/qr",
+        "method": "get",
+        "callback": "freeqr#emptyform"
+    }, {
+    	"Purpose":"資料填寫完畢，開始建置連結",
+        "path": "/qr",
+        "method": "post",
+        "callback": "freeqr#createlink"
+    }, {
+    	"Purpose":"沒有輸入任何資料，進入空白的建置畫面",
+        "path": "/qrapp",
+        "method": "get",
+        "callback": "freeqr#emptyform"
+    },{
+    	"Purpose":"資料填寫完畢，開始建置連結並建立acs物件",
+        "path": "/qrapp",
+        "method": "post",
+        "callback": "freeqr#createqrapplink"
+    }, {
+        "Purpose":"空白首頁測試",
+        "path": "/empty",
+        "callback": "application#index"
+    }, {
+    	"Purpose":"測試",
+        "path": "/freeapi",
+        "method": "get",
+        "callback": "freeapi#test"
+    }, {
+    	"Purpose":"測試",
+        "path": "/freeapi",
+        "method": "post",
+        "callback": "freeapi#freeqrjson"
+    }, {
+    	"Purpose":"測試",
+        "path": "/freeapi/test/:id",
+        "callback": "freeapi#test"
+    }, {
+    	"Purpose":"在網址上直接放上要建立QR Code的文字產生png格式的QR Code",
+        "path": "/qr/:link",
+        "method": "get",
+        "callback": "freeapi#freeqr"
+    }, {
+    	"Purpose":"資料填寫完畢，開始建置連結並將連結以json物件回覆",
+        "path": "/qr/json",
+        "method": "post",
+        "callback": "test#createjsonlink"
+    }, {
+		"Purpose":"測試：資料庫的特定物件搜尋",
+        "path": "/mysql/:cloudkey_id",
+        "callback": "test#mysqldb"
+    }, {
+        "Purpose":"測試：acs使用者登入功能",
+        "path": "/acs/user",
+        "callback": "test#acs_user"
+    }, {
+        "Purpose":"測試：acs使用者登入功能",
+        "path": "/",
+        "callback": "application#index_new"
+    } ],
+    "filters": [ {
+        "path": "/",
+        "callback": ""
+    } ],
+    "websockets": [ {
+        "event": "",
+        "callback": ""
+    } ]
+}
