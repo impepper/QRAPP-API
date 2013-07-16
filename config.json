@@ -59,6 +59,10 @@
         "Purpose":"測試：acs使用者登入功能",
         "path": "/",
         "callback": "application#index_new"
+    }, {
+        "Purpose":"測試：RPC 功能",
+        "path": "/zerorpc",
+        "callback": "zerorpc#Hellowithpython"
     } ],
     "filters": [ {
         "path": "/",
