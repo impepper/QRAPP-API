@@ -1,0 +1,158 @@
+# Recommanded Worker OS : Debian 7.1.0 x64
+# Install without Graphical
+# US English Setting
+# ftp.tku.edu.tw - mirror
+# Select SSH Server and Standard system utilities only
+
+#Setup Commands
+sudo echo "deb http://backports.debian.org/debian-backports/ squeeze-backports main" | sudo tee -a /etc/apt/sources.list
+deb http://backports.debian.org/debian-backports/ squeeze-backports main
+
+---using this commands:
+# Prepare to Download Building applications
+mkdir ~/src && cd $_
+
+# Add Repo for python-zmq
+sudo echo "deb http://backports.debian.org/debian-backports/ squeeze-backports main" | sudo tee -a /etc/apt/sources.list
+
+# Add repo for JDK7
+sudo echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu precise main" | sudo tee -a /etc/apt/sources.list
+sudo echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu precise main" | sudo tee -a /etc/apt/sources.list
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886
+
+
+# apt-get Update and install basic libraries (including  Proftpd - )
+sudo apt-get update | sudo apt-get install unzip wput git-core curl build-essential openssl libssl-dev
+
+# Install Proftpd - Using Stabdalone Mode
+sudo apt-get install proftpd
+# Install python-zmq, pytthon-pip
+sudo apt-get install python-zmq python-pip
+# easy_Install python package pyMySql
+sudo easy_install pymysql
+
+sudo apt-get install ia32-libs # for 64bit debian 6
+sudo apt-get install lib32z1 lib32s # for 64bit debian 7
+# Install JDK7
+# sudo su
+sudo apt-get update
+sudo apt-get install oracle-java7-installer
+# exit
+java -version # Confirm Installation
+javac -version # Confirm Installation
+
+# Install NodeJS
+git clone https://github.com/joyent/node.git
+cd node
+git checkout v0.8.22
+./configure --openssl-libpath=/usr/lib/ssl
+make
+sudo make install
+sudo npm install -g n
+sudo npm install -g nodemon
+sudo n 0.8.22
+
+# Install ZeroMQ
+sudo apt-get install libtool autoconf automake
+cd ~/src
+git clone https://github.com/zeromq/libzmq
+cd libzmq
+sudo ./autogen.sh
+./configure
+make
+sudo make install
+sudo ldconfig
+sudo npm install -g zmq
+#When ZMQ is need use: npm install n
+
+#Install Zero RPC  (http://zerorpc.dotcloud.com/)
+	# For Python:
+		# Install gevent
+		cd ~/src
+		sudo apt-get install python-pip python-dev
+		sudo pip install cython -e git://github.com/surfly/gevent.git@1.0rc2#egg=gevent
+		# Install ZeroRPC
+		sudo pip install zerorpc
+	# For NodeJS:
+		# Install ZeroMQ  - libzmq
+		sudo apt-get install libtool autoconf automake
+		cd ~/src
+		git clone https://github.com/zeromq/libzmq
+		cd libzmq
+		sudo ./autogen.sh
+		./configure
+		make
+		sudo make install
+		sudo ldconfig
+		sudo npm install -g zmq
+		# Install ZeroRPC
+		sudo npm install -g zerorpc
+
+# Config PATH in .bash_profile
+echo "export NPM_CONFIG_PREFIX=$HOME" | tee -a ~/.bash_profile
+echo "export JAVA_HOME=$(dirname $(dirname $(readlink -f /usr/bin/javac)))" | tee -a ~/.bash_profile
+source ~/.bash_profile
+
+# android-sdk should be done like this:
+	# wget http://dl.google.com/android/adt/adt-bundle-linux-x86_64-20130522.zip
+	# unzip adt-bundle-linux-x86_64-20130522
+	# mv adt-bundle-linux-x86_64-20130522/sdk ~/android-sdk
+	# wget ftp://pepper:hala0204@192.168.163.140/platforms.zip
+	# unzip -o platforms.zip -d ~/android-sdk
+
+#Easyway:
+#from Local VM
+cd ~/src
+wget ftp://pepper:hala0204@192.168.163.140/src/android-sdk-linux-x64.tar.gz #for 64bit Debians
+# wget ftp://pepper:hala0204@192.168.163.140/src/android-sdk-linux-i386.tar.gz #for 32bit Debians
+# wget ftp://pepper:hala0204@192.168.163.140/src/platforms.zip
+wget ftp://pepper:hala0204@192.168.163.140/src/modules.tar.gz
+wget ftp://pepper:hala0204@192.168.163.140/src/mcms.tar.gz
+wget ftp://pepper:hala0204@192.168.163.140/src/buildscripts.tar.gz # Building Scripts and keystore 
+# wget ftp://pepper:hala0204@192.168.163.139/src/appbuild.py # Build script
+# wget ftp://pepper:hala0204@192.168.163.139/src/tibuild.sh # titanium build commands
+# wget ftp://pepper:hala0204@192.168.163.139/src/Android.keystore # Android APK Dist keystore : fuihan - hala0204
+
+# from NTU FTP
+wget http://140.112.21.14/~pepper/appbuilder/android-sdk-linux-x64.tar.gz #for 64bit Debians
+wget http://140.112.21.14/~pepper/appbuilder/android-sdk-linux-i386.tar.gz #for 32bit Debians
+wget http://140.112.21.14/~pepper/appbuilder/modules.tar.gz # Titanium Modules
+wget http://140.112.21.14/~pepper/appbuilder/mcms.tar.gz # mCMS Sources 1.2.2
+wget http://140.112.21.14/~pepper/appbuilder/buildscripts.tar.gz # Building Scripts and keystore 
+
+# Install Titanium CLI
+cd ~/
+sudo npm install -g titanium
+titanium login
+titanium sdk install 3.1.1.GA
+titanium sdk install 3.1.0.GA
+
+# Overwrite with FTP Files
+tar zxvf ~/src/android-sdk-linux-x64.tar.gz -C ~/
+tar zxvf ~/src/mcms.tar.gz -C ~/
+tar zxvf ~/src/modules.tar.gz -C ~/.titanium
+tar zxvf ~/src/buildscripts.tar.gz -C ~/
+
+tar zxvf ~/android-sdk-linux-x64.tar.gz -C ~/
+tar zxvf ~/mcms.tar.gz -C ~/
+tar zxvf ~/modules.tar.gz -C ~/.titanium
+tar zxvf ~/buildscripts.tar.gz -C ~/
+
+titanium setup  # Setting Android SDk : ~/android-sdk
+
+# Ready to Build Apps
+# Dyndns with Freedns
+sudo apt-get install unadyn
+edit /etc/inadyn.conf:
+--username impepper
+--password 61011574
+--update_period_sec 3600
+--forced_update_period 320000
+#--alias tonido.fuihan.com,WFc3RkJaQjV6elRkdXdZd2dZUTc6NzMwNDYwMg==
+#--alias subdomain,<web urlKey>
+--alias ras.fuihan.com,WFc3RkJaQjV6elRkdXdZd2dZUTc6OTUyNzY2MQ==
+--background
+--dyndns_system default@freedns.afraid.org
+--syslog
+#restart inadyn
+sudo inadyn
