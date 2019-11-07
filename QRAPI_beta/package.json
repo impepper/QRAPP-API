@@ -15,7 +15,7 @@
   "dependencies": {
     "irc-js": "0.2.x",
     "restify" : "2.x.x",
-    "mysql" : "2.0.x"
+    "mysql" : "2.17.x"
   },
   "devDependencies" : {
       "tap" : "0.4.x"
