@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "irc-js": "0.2.x",
-    "restify" : "2.x.x",
+    "restify" : "8.x.x",
     "mysql" : "2.0.x"
   },
   "devDependencies" : {
